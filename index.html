@@ -187,7 +187,7 @@
                 businessDesc: "Spesialis kustomisasi perlengkapan setup desktop mulai dari Custom Deskmat dengan bahan premium hingga Custom NFC Card untuk kebutuhan personal branding maupun korporat.",
                 productImg: "photo/product/deskmat.png",
                 contact: "+6281210005912",
-                sosmed: { ig: "@bluegray_ink", web: "bluegrayink.id" }
+                sosmed: { ig: "@bluegrayink", tiktok: "@bluegrayink", web: "bluegrayink.com" }
             },
             {
                 name: "Founder Kedua",
@@ -245,17 +245,24 @@
             document.getElementById('m-biz-desc').innerText = f.businessDesc;
             document.getElementById('m-prod-img').src = f.productImg;
 
-            // Render Social Links
+            // Render Social Links dengan Username Dinamis
             document.getElementById('m-social').innerHTML = `
-                <a href="https://instagram.com/${f.sosmed.ig.replace('@','')}" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-                <a href="https://${f.sosmed.web}" target="_blank"><i class="fas fa-globe"></i> Website</a>
+            <a href="https://instagram.com/${f.sosmed.ig.replace('@','')}" target="_blank">
+                <i class="fab fa-instagram"></i> ${f.sosmed.ig}
+            </a>
+            <a href="https://tiktok.com/@${f.sosmed.tiktok.replace('@','')}" target="_blank">
+                <i class="fab fa-tiktok"></i> ${f.sosmed.tiktok}
+            </a>
+            <a href="https://${f.sosmed.web}" target="_blank">
+                <i class="fas fa-globe"></i> ${f.sosmed.web.replace('https://', '').replace('http://', '')}
+            </a>
             `;
 
             // Render WA Button
             const cleanWa = f.contact.replace(/\D/g, ''); // Ambil angka saja
             document.getElementById('m-contact-box').innerHTML = `
                 <a href="https://wa.me/${cleanWa}" class="wa-btn" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Chat via WhatsApp
+                    <i class="fab fa-whatsapp"></i> WhatsApp
                 </a>
             `;
 
@@ -274,3 +281,4 @@
     </script>
 </body>
 </html>
+
