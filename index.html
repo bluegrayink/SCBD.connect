@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Founders Universe | Business Profile</title>
+    <title>The Founders Universe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --bg-dark: #08090a;
@@ -12,58 +15,68 @@
             --text-main: #ffffff;
             --text-dim: #b0b0b0;
             --glass: rgba(255, 255, 255, 0.05);
+            --wa-green: #25D366;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
-        /* Hero */
+        /* --- Header / Slogan --- */
         .hero {
-            padding: 80px 20px;
+            padding: 100px 20px 60px;
             text-align: center;
             background: radial-gradient(circle at top, #1a202c 0%, #08090a 100%);
         }
-        .hero h1 { font-size: 3rem; letter-spacing: -2px; margin-bottom: 10px; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; letter-spacing: -2px; margin-bottom: 15px; }
         .gradient-text { background: linear-gradient(90deg, #00d4ff, #0055ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .slogan { color: var(--text-dim); max-width: 700px; margin: 0 auto; font-style: italic; }
+        .slogan { color: var(--text-dim); max-width: 650px; margin: 0 auto; font-size: 1.1rem; line-height: 1.6; }
 
-        /* Grid */
+        /* --- Grid Section --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
         .founder-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
         }
 
-        /* Card */
+        /* --- Card Design --- */
         .founder-card {
             background: var(--card-bg);
             border-radius: 24px;
             overflow: hidden;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             border: 1px solid var(--glass);
+            position: relative;
         }
-        .founder-card:hover { transform: translateY(-10px); border-color: var(--accent); }
-        .founder-card img { width: 100%; height: 300px; object-fit: cover; }
-        .card-info { padding: 20px; text-align: center; }
-        .card-info p { color: var(--accent); font-size: 0.8rem; font-weight: bold; margin-top: 5px; }
+        .founder-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .founder-card img { width: 100%; height: 320px; object-fit: cover; transition: 0.5s; }
+        .founder-card:hover img { transform: scale(1.05); }
+        
+        .card-info { 
+            padding: 20px; 
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            position: absolute; bottom: 0; width: 100%;
+        }
+        .card-info h3 { font-size: 1.2rem; font-weight: 700; }
+        .card-info p { color: var(--accent); font-size: 0.85rem; margin-top: 4px; font-weight: 600; }
 
-        /* Modal / Pop-up */
+        /* --- Modal / Pop-up --- */
         .modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            display: none; /* Controlled by JS */
+            background: rgba(0,0,0,0.9);
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             padding: 20px;
         }
         .modal.active { display: flex; }
@@ -71,48 +84,50 @@
         .modal-content {
             background: #181a1d;
             width: 100%;
-            max-width: 900px;
+            max-width: 850px;
             max-height: 90vh;
             border-radius: 32px;
             position: relative;
             display: flex;
-            flex-direction: row;
-            overflow-y: auto;
+            overflow: hidden;
             border: 1px solid var(--glass);
-            animation: slideUp 0.4s ease;
+            animation: modalPop 0.4s ease;
         }
+        @keyframes modalPop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-left { flex: 0.4; padding: 40px; border-right: 1px solid var(--glass); text-align: center; }
+        .modal-right { flex: 0.6; padding: 40px; overflow-y: auto; background: #1c1f24; }
 
-        .modal-left { flex: 1; padding: 40px; }
-        .modal-right { flex: 1; background: #202327; padding: 40px; display: flex; flex-direction: column; gap: 20px; }
+        .m-profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent); margin-bottom: 20px; }
+        .m-product-img { width: 100%; border-radius: 15px; margin-top: 10px; border: 1px solid var(--glass); object-fit: cover; height: 200px; }
 
-        .m-profile-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); margin-bottom: 20px; }
-        .m-product-img { width: 100%; border-radius: 15px; margin-top: 10px; border: 1px solid var(--glass); }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 1.5rem; cursor: pointer; color: var(--text-dim); transition: 0.3s; z-index: 100; }
+        .close-btn:hover { color: white; }
 
-        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 2rem; cursor: pointer; z-index: 10; }
+        .business-tag { background: var(--accent); color: #000; padding: 4px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; display: inline-block; margin-bottom: 8px; }
 
-        .social-links a {
-            display: inline-block;
-            margin-right: 15px;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            border-bottom: 1px solid transparent;
+        /* Social & Contact */
+        .social-links { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        .social-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .social-links a:hover { color: var(--accent); }
+        .social-links i { width: 20px; font-size: 1.1rem; }
+
+        .wa-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: var(--wa-green); color: white; padding: 12px; border-radius: 12px;
+            text-decoration: none; font-weight: 700; margin-top: 15px; transition: 0.3s;
         }
-        .social-links a:hover { border-bottom: 1px solid var(--accent); }
+        .wa-btn:hover { transform: scale(1.03); filter: brightness(1.1); }
 
-        .business-tag { background: var(--accent); color: #000; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; display: inline-block; margin-bottom: 10px; }
-
-        /* Mobile */
+        /* --- Mobile Responsive --- */
         @media (max-width: 850px) {
-            .modal-content { flex-direction: column; }
-            .modal-left, .modal-right { padding: 30px; }
-            .founder-grid { grid-template-columns: repeat(2, 1fr); }
+            .modal-content { flex-direction: column; overflow-y: auto; }
+            .modal-left { border-right: none; border-bottom: 1px solid var(--glass); padding: 30px; }
+            .founder-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
         }
         @media (max-width: 480px) {
             .founder-grid { grid-template-columns: 1fr; }
+            .modal-right { padding: 25px; }
         }
     </style>
 </head>
@@ -120,7 +135,7 @@
 
     <header class="hero">
         <h1>FOUNDER <span class="gradient-text">CIRCLE</span></h1>
-        <p class="slogan">Kumpulan inovator yang berdedikasi menciptakan solusi nyata di berbagai lini industri teknologi dan kreatif.</p>
+        <p class="slogan">"Membangun masa depan melalui inovasi, kolaborasi, dan dedikasi di berbagai sektor industri."</p>
     </header>
 
     <div class="container">
@@ -129,92 +144,99 @@
 
     <div class="modal" id="p-modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <span class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></span>
             
             <div class="modal-left">
                 <img id="m-img" src="" class="m-profile-img">
                 <h2 id="m-name">Nama</h2>
-                <h4 id="m-role" style="color: var(--accent); margin-bottom: 15px;">Role</h4>
+                <p id="m-role" style="color: var(--accent); font-weight: 600;">Role</p>
+                
                 <div class="social-links" id="m-social">
                     </div>
             </div>
 
             <div class="modal-right">
-                <div>
-                    <span class="business-tag">BUSINESS INFO</span>
-                    <h3 id="m-biz-name">Nama Bisnis</h3>
-                    <p id="m-biz-desc" style="color: var(--text-dim); margin-top: 10px;"></p>
+                <div style="margin-bottom: 25px;">
+                    <span class="business-tag">BUSINESS PROFILE</span>
+                    <h3 id="m-biz-name" style="font-size: 1.5rem; margin-bottom: 10px;">Nama Bisnis</h3>
+                    <p id="m-biz-desc" style="color: var(--text-dim); line-height: 1.6;"></p>
                 </div>
-                <div>
-                    <span class="business-tag">PRODUCT SAMPLE</span>
+
+                <div style="margin-bottom: 25px;">
+                    <span class="business-tag">PRODUCT SHOWCASE</span>
                     <img id="m-prod-img" src="" class="m-product-img">
                 </div>
+
                 <div>
-                    <span class="business-tag">CONTACT</span>
-                    <p id="m-contact" style="font-weight: bold;"></p>
+                    <span class="business-tag">DIRECT CONTACT</span>
+                    <div id="m-contact-box">
+                        </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // DATA 20 ANGGOTA - Silakan Edit di Sini
+        // DATA FOUNDERS (Silakan edit data di bawah ini)
         const founders = [
             {
-                name: "Alex Rivera",
-                role: "CEO TechNova",
-                profileImg: "https://i.pravatar.cc/300?img=1",
-                businessName: "TechNova Solutions",
-                businessDesc: "Layanan Cloud Computing untuk UMKM agar bisa go-digital dengan biaya terjangkau.",
-                productImg: "https://images.unsplash.com/photo-1551288049-bbb653283b5c?auto=format&fit=crop&w=500",
-                contact: "WhatsApp: +62 812-3456-7890",
-                sosmed: { ig: "@alexrivera", web: "technova.id" }
+                name: "Albert Pratama (Alabert)",
+                role: "Founder",
+                profileImg: "photo/albert.png",
+                businessName: "Bluegray Ink",
+                businessDesc: "Spesialis kustomisasi perlengkapan setup desktop mulai dari Custom Deskmat dengan bahan premium hingga Custom NFC Card untuk kebutuhan personal branding maupun korporat.",
+                productImg: "photo/product/deskmat.png",
+                contact: "+6281210005912",
+                sosmed: { ig: "@bluegray_ink", web: "bluegrayink.id" }
             },
             {
-                name: "Sarah Wijaya",
-                role: "Founder Bloom",
-                profileImg: "https://i.pravatar.cc/300?img=5",
-                businessName: "Bloom Skincare",
-                businessDesc: "Produk kecantikan organik berbasis bahan alami Indonesia tanpa bahan kimia berbahaya.",
-                productImg: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500",
-                contact: "Email: sarah@bloom.com",
-                sosmed: { ig: "@bloomskin", web: "bloom.id" }
+                name: "Founder Kedua",
+                role: "CEO Creative",
+                profileImg: "photo/founder2.png", 
+                businessName: "Digital Studio",
+                businessDesc: "Membantu UMKM melakukan digital branding melalui konten video dan desain grafis yang estetik.",
+                productImg: "photo/product/produk2.png",
+                contact: "+628123456789",
+                sosmed: { ig: "@digital_studio", web: "studio.com" }
             }
-            // Kamu bisa menambah data sampai 20 dengan format yang sama...
+            // Tambahkan data orang ke-3 sampai ke-20 dengan format yang sama persis...
         ];
 
-        // Tambahkan sisa 18 data dummy otomatis untuk demo
-        for(let i=3; i<=20; i++) {
-            founders.push({
-                name: "Founder Anggota " + i,
-                role: "Jabatan/Role " + i,
-                profileImg: `https://i.pravatar.cc/300?img=${i+10}`,
-                businessName: "Bisnis Anggota " + i,
-                businessDesc: "Deskripsi singkat mengenai bisnis yang dijalankan oleh founder ini. Meliputi visi dan misi singkat.",
-                productImg: `https://picsum.photos/seed/${i}/500/300`,
-                contact: "Contact: +62 899-xxx-xxx",
-                sosmed: { ig: "@username", web: "website.com" }
-            });
+        // AUTO GENERATE DATA DUMMY (Hapus loop ini jika kamu sudah isi 20 data asli di atas)
+        if(founders.length < 20) {
+            for(let i = founders.length + 1; i <= 20; i++) {
+                founders.push({
+                    name: `Founder Anggota ${i}`,
+                    role: "Creative Director",
+                    profileImg: `https://i.pravatar.cc/300?img=${i}`,
+                    businessName: `Startup Tech ${i}`,
+                    businessDesc: "Deskripsi singkat mengenai bisnis yang dijalankan. Menyediakan solusi inovatif untuk masalah sehari-hari.",
+                    productImg: `https://picsum.photos/seed/${i}/500/300`,
+                    contact: "+628000000000",
+                    sosmed: { ig: "@username", web: "website.com" }
+                });
+            }
         }
 
         const grid = document.getElementById('mainGrid');
         const modal = document.getElementById('p-modal');
 
-        // Render Card
+        // Render Card ke Grid
         founders.forEach(f => {
             const card = document.createElement('div');
             card.className = 'founder-card';
             card.innerHTML = `
-                <img src="${f.profileImg}" alt="${f.name}">
+                <img src="${f.profileImg}" alt="${f.name}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Photo'">
                 <div class="card-info">
                     <h3>${f.name}</h3>
-                    <p>${f.role}</p>
+                    <p>${f.businessName}</p>
                 </div>
             `;
             card.onclick = () => openModal(f);
             grid.appendChild(card);
         });
 
+        // Buka Pop-up
         function openModal(f) {
             document.getElementById('m-name').innerText = f.name;
             document.getElementById('m-role').innerText = f.role;
@@ -222,23 +244,32 @@
             document.getElementById('m-biz-name').innerText = f.businessName;
             document.getElementById('m-biz-desc').innerText = f.businessDesc;
             document.getElementById('m-prod-img').src = f.productImg;
-            document.getElementById('m-contact').innerText = f.contact;
-            
-            const socialBox = document.getElementById('m-social');
-            socialBox.innerHTML = `
-                <a href="#">Instagram: ${f.sosmed.ig}</a>
-                <a href="#">Web: ${f.sosmed.web}</a>
+
+            // Render Social Links
+            document.getElementById('m-social').innerHTML = `
+                <a href="https://instagram.com/${f.sosmed.ig.replace('@','')}" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://${f.sosmed.web}" target="_blank"><i class="fas fa-globe"></i> Website</a>
+            `;
+
+            // Render WA Button
+            const cleanWa = f.contact.replace(/\D/g, ''); // Ambil angka saja
+            document.getElementById('m-contact-box').innerHTML = `
+                <a href="https://wa.me/${cleanWa}" class="wa-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Chat via WhatsApp
+                </a>
             `;
 
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Stop scroll
+            document.body.style.overflow = 'hidden';
         }
 
+        // Tutup Pop-up
         function closeModal() {
             modal.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Re-enable scroll
+            document.body.style.overflow = 'auto';
         }
 
+        // Tutup jika klik background hitam
         window.onclick = (e) => { if(e.target == modal) closeModal(); }
     </script>
 </body>
