@@ -2,277 +2,48 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚡️ SCBD Connect ⚡️</title>
-    
-    <link rel="manifest" href="/manifest.json">
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png"> <meta name="theme-color" content="#1A1A2E"/>
-    
-    <style>
-        /* Global Reset & Basic Styling */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: 'Poppins', sans-serif; /* Link ke Google Fonts nanti */
-            background: linear-gradient(135deg, #1A1A2E 0%, #0F0F1B 100%);
-            color: #E0E0E0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden; /* Prevent scroll for intro anim */
-            position: relative;
-        }
-
-        /* Intro Animation Overlay */
-        #intro-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1A1A2E 0%, #0F0F1B 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #6200ee;
-            z-index: 1000;
-            opacity: 1;
-            transition: opacity 1.5s ease-out;
-        }
-        #intro-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        #intro-text {
-            transform: translateY(20px);
-            opacity: 0;
-            animation: slideUpFadeIn 1s forwards;
-            animation-delay: 0.5s;
-        }
-        @keyframes slideUpFadeIn {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Main Container */
-        .container {
-            background: rgba(255, 255, 255, 0.08); /* Glassmorphism background */
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            padding: 30px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            animation: fadeInScale 1s ease-out forwards;
-            animation-delay: 1.5s; /* After intro anim */
-            opacity: 0;
-            transform: scale(0.95);
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        @keyframes fadeInScale {
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        /* Profile Section */
-        .profile-picture {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #6200ee;
-            margin-bottom: 20px;
-            box-shadow: 0 0 15px rgba(98, 0, 238, 0.5);
-            transition: transform 0.3s ease;
-        }
-        .profile-picture:hover {
-            transform: scale(1.05) rotate(5deg);
-        }
-
-        h2 {
-            font-size: 2.2em;
-            margin-bottom: 5px;
-            color: #E0E0E0;
-        }
-        .tagline {
-            font-size: 1.1em;
-            color: #BBBBBB;
-            margin-bottom: 25px;
-        }
-
-        /* Buttons & Socials */
-        .action-button {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, #6200ee, #03dac6);
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            font-size: 1.1em;
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 15px rgba(98, 0, 238, 0.3);
-        }
-        .action-button:hover {
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 6px 20px rgba(98, 0, 238, 0.5);
-        }
-
-        .social-icons {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .social-icons a {
-            color: #E0E0E0;
-            font-size: 1.8em;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        .social-icons a:hover {
-            transform: translateY(-5px) scale(1.1);
-            color: #03dac6;
-        }
-
-        /* Dynamic Content */
-        .dynamic-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 15px;
-            margin-top: 30px;
-            font-size: 0.95em;
-            text-align: left;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .dynamic-section h3 {
-            color: #03dac6;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-        .dynamic-section p {
-            line-height: 1.6;
-            color: #CCCCCC;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            body { padding: 20px; }
-            .container { padding: 25px; }
-            h2 { font-size: 1.8em; }
-            .tagline { font-size: 1em; }
-            .action-button { padding: 12px; font-size: 1em; }
-            .social-icons a { font-size: 1.5em; }
-            #intro-overlay { font-size: 1.8em; }
-        }
-    </style>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCBD Connect</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="intro-overlay">
-        <span id="intro-text">⚡️ SCBD Connected! ⚡️</span>
-    </div>
 
-    <div class="container">
-        <img src="https://via.placeholder.com/120/6200ee/FFFFFF?text=YOU" alt="Profile Picture" class="profile-picture">
-        <h2>Dean Martin</h2>
-        <p class="tagline">Content Specialist</p>
-
-        <a href="tel:+628123456789" class="action-button"><i class="fas fa-phone-alt"></i> Call Me</a>
-        <a href="mailto:email@example.com" class="action-button"><i class="fas fa-envelope"></i> Email Me</a>
-        <a href="https://wa.me/628123456789" target="_blank" class="action-button"><i class="fab fa-whatsapp"></i> Chat via WhatsApp</a>
-        <a href="#" id="saveContactBtn" class="action-button"><i class="fas fa-id-card"></i> Save Contact</a>
-
-        <div class="dynamic-section">
-            <h3>Today's Insight:</h3>
-            <p id="dynamic-content">"The future is not something you enter. It is something you create." - Leonard I. Sweet</p>
+    <header class="hero">
+        <div class="container">
+            <h1>BUILDING THE <span class="gradient-text">FUTURE</span></h1>
+            <p class="slogan">"Inovasi bukan tentang ide, tapi tentang mewujudkannya bersama-sama."</p>
         </div>
+    </header>
 
-        <div class="social-icons">
-            <a href="https://linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://instagram.com/yourprofile" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://github.com/yourprofile" target="_blank"><i class="fab fa-github"></i></a>
+    <section class="founders-section">
+        <div class="container">
+            <div class="founder-grid" id="founderGrid">
+                <div class="founder-card" onclick="openModal('Alex Rivera', 'CEO & Visionary', 'Berpengalaman 10 tahun di industri teknologi dan AI.', 'https://i.pravatar.cc/300?img=1')">
+                    <img src="https://i.pravatar.cc/300?img=1" alt="Founder">
+                    <div class="card-info">
+                        <h3>Alex Rivera</h3>
+                        <p>CEO</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <img id="modalImg" src="" alt="Founder Profile">
+                <div class="modal-text">
+                    <h2 id="modalName">Name</h2>
+                    <h4 id="modalRole">Role</h4>
+                    <p id="modalBio">Biography goes here...</p>
+                </div>
             </div>
+        </div>
     </div>
 
-    <script>
-        // PWA Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js') // Buat file ini nanti
-                    .then(reg => console.log('Service Worker Registered!', reg))
-                    .catch(err => console.log('Service Worker Registration Failed:', err));
-            });
-        }
-
-        // Intro Animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const introOverlay = document.getElementById('intro-overlay');
-            setTimeout(() => {
-                introOverlay.classList.add('hidden');
-                document.body.style.overflow = 'auto'; // Re-enable scroll after intro
-            }, 2000); // Hide after 2 seconds
-        });
-
-        // Dynamic Content (bisa dari API/backend di real project)
-        const dynamicContentElem = document.getElementById('dynamic-content');
-        const insights = [
-            "Innovation distinguishes between a leader and a follower.",
-            "The best way to predict the future is to create it.",
-            "Opportunities don't happen, you create them.",
-            "Embrace the unknown, it's where true growth lies."
-        ];
-        // Display a random insight each time
-        dynamicContentElem.innerText = insights[Math.floor(Math.random() * insights.length)];
-
-        // Save Contact Button Functionality
-        document.getElementById('saveContactBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            const vcard = `BEGIN:VCARD
-VERSION:3.0
-FN;CHARSET=UTF-8:[Nama Lengkap Lo]
-N;CHARSET=UTF-8:[Nama Lo];;;;
-EMAIL;TYPE=INTERNET;CHARSET=UTF-8:email@example.com
-TEL;TYPE=CELL:+628123456789
-ORG;CHARSET=UTF-8:[Nama Perusahaan/Freelance Lo]
-TITLE;CHARSET=UTF-8:[Posisi Lo]
-URL;CHARSET=UTF-8:https://yourwebsite.com
-END:VCARD`;
-
-            const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', '[Nama Lo].vcf');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            
-            // Opsional: Kasih feedback ke user
-            alert('Kontak berhasil disimpan!');
-        });
-
-        // You might want to implement Web NFC directly on a separate "Tap Me" landing page
-        // and redirect to this profile PWA after successful scan of YOUR NFC Card ID.
-        // For simplicity, this demo assumes user directly opens this PWA URL.
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
-
