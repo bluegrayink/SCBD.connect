@@ -3,247 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCBD Connect | Great Circle</title>
+    <title>The Founders Universe | Business Profile</title>
     <style>
-        /* CSS STYLE */
         :root {
-            --bg-dark: #0f1113;
-            --card-bg: #1c1e22;
+            --bg-dark: #08090a;
+            --card-bg: #121417;
             --accent: #00d4ff;
             --text-main: #ffffff;
-            --text-dim: #a0a0a0;
+            --text-dim: #b0b0b0;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, sans-serif;
             overflow-x: hidden;
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            padding: 80px 20px;
             text-align: center;
-            padding: 20px;
-            background: radial-gradient(circle at center, #1a2a3a 0%, #0f1113 70%);
+            background: radial-gradient(circle at top, #1a202c 0%, #08090a 100%);
         }
+        .hero h1 { font-size: 3rem; letter-spacing: -2px; margin-bottom: 10px; }
+        .gradient-text { background: linear-gradient(90deg, #00d4ff, #0055ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .slogan { color: var(--text-dim); max-width: 700px; margin: 0 auto; font-style: italic; }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #00d4ff, #0055ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .slogan {
-            font-size: clamp(1rem, 4vw, 1.2rem);
-            color: var(--text-dim);
-            max-width: 600px;
-            font-style: italic;
-        }
-
-        /* Grid Section */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
+        /* Grid */
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
         .founder-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
         }
 
-        /* Founder Card */
+        /* Card */
         .founder-card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(255,255,255,0.05);
-            position: relative;
+            transition: 0.3s;
+            border: 1px solid var(--glass);
         }
-
-        .founder-card:hover {
-            transform: scale(1.05);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
-        }
-
-        .founder-card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            filter: grayscale(30%);
-            transition: 0.4s;
-        }
-
-        .founder-card:hover img { filter: grayscale(0%); }
-
-        .card-info {
-            padding: 15px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .card-info h3 { font-size: 1.1rem; margin-bottom: 2px; }
-        .card-info p { font-size: 0.8rem; color: var(--accent); font-weight: bold; }
+        .founder-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .founder-card img { width: 100%; height: 300px; object-fit: cover; }
+        .card-info { padding: 20px; text-align: center; }
+        .card-info p { color: var(--accent); font-size: 0.8rem; font-weight: bold; margin-top: 5px; }
 
         /* Modal / Pop-up */
         .modal {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            align-items: center;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: none; /* Controlled by JS */
             justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
+            align-items: center;
+            z-index: 9999;
             backdrop-filter: blur(10px);
+            padding: 20px;
         }
-
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
-            background: #25282c;
-            width: 90%;
-            max-width: 700px;
-            border-radius: 30px;
-            padding: 40px;
+            background: #181a1d;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            border-radius: 32px;
             position: relative;
-            transform: translateY(50px);
-            transition: 0.4s ease;
             display: flex;
             flex-direction: row;
-            gap: 30px;
+            overflow-y: auto;
+            border: 1px solid var(--glass);
+            animation: slideUp 0.4s ease;
         }
 
-        .modal.active .modal-content { transform: translateY(0); }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .modal-img {
-            width: 250px;
-            height: 300px;
-            border-radius: 20px;
-            object-fit: cover;
+        .modal-left { flex: 1; padding: 40px; }
+        .modal-right { flex: 1; background: #202327; padding: 40px; display: flex; flex-direction: column; gap: 20px; }
+
+        .m-profile-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); margin-bottom: 20px; }
+        .m-product-img { width: 100%; border-radius: 15px; margin-top: 10px; border: 1px solid var(--glass); }
+
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 2rem; cursor: pointer; z-index: 10; }
+
+        .social-links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border-bottom: 1px solid transparent;
         }
+        .social-links a:hover { border-bottom: 1px solid var(--accent); }
 
-        .modal-details { flex: 1; }
-        .modal-details h2 { font-size: 2rem; color: var(--accent); }
-        .modal-details h4 { color: var(--text-dim); margin-bottom: 15px; }
-        .modal-details p { font-size: 1rem; color: #ccc; }
+        .business-tag { background: var(--accent); color: #000; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; display: inline-block; margin-bottom: 10px; }
 
-        .close-btn {
-            position: absolute;
-            top: 20px; right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--text-dim);
+        /* Mobile */
+        @media (max-width: 850px) {
+            .modal-content { flex-direction: column; }
+            .modal-left, .modal-right { padding: 30px; }
+            .founder-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .modal-content {
-                flex-direction: column;
-                padding: 20px;
-                text-align: center;
-                margin: 10px;
-            }
-            .modal-img {
-                width: 150px;
-                height: 150px;
-                margin: 0 auto;
-                border-radius: 50%;
-            }
-            .founder-grid {
-                grid-template-columns: repeat(2, 1fr); /* 2 Kolom di HP */
-                gap: 15px;
-            }
+        @media (max-width: 480px) {
+            .founder-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <header class="hero">
-        <h1>SCBD <span class="gradient-text">CONNECT</span></h1>
-        <p class="slogan">"Membangun ekosistem masa depan dengan kolaborasi dan dedikasi tanpa batas."</p>
+        <h1>FOUNDER <span class="gradient-text">CIRCLE</span></h1>
+        <p class="slogan">Kumpulan inovator yang berdedikasi menciptakan solusi nyata di berbagai lini industri teknologi dan kreatif.</p>
     </header>
 
     <div class="container">
-        <div class="founder-grid" id="grid">
-            </div>
+        <div class="founder-grid" id="mainGrid"></div>
     </div>
 
-    <div class="modal" id="modal">
+    <div class="modal" id="p-modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img src="" id="m-img" class="modal-img">
-            <div class="modal-details">
-                <h2 id="m-name">Nama Founder</h2>
-                <h4 id="m-role">Jabatan</h4>
-                <p id="m-bio">Ini adalah deskripsi singkat tentang perjalanan karir dan kontribusi founder dalam membangun visi perusahaan ke depan.</p>
+            
+            <div class="modal-left">
+                <img id="m-img" src="" class="m-profile-img">
+                <h2 id="m-name">Nama</h2>
+                <h4 id="m-role" style="color: var(--accent); margin-bottom: 15px;">Role</h4>
+                <div class="social-links" id="m-social">
+                    </div>
+            </div>
+
+            <div class="modal-right">
+                <div>
+                    <span class="business-tag">BUSINESS INFO</span>
+                    <h3 id="m-biz-name">Nama Bisnis</h3>
+                    <p id="m-biz-desc" style="color: var(--text-dim); margin-top: 10px;"></p>
+                </div>
+                <div>
+                    <span class="business-tag">PRODUCT SAMPLE</span>
+                    <img id="m-prod-img" src="" class="m-product-img">
+                </div>
+                <div>
+                    <span class="business-tag">CONTACT</span>
+                    <p id="m-contact" style="font-weight: bold;"></p>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Data 20 Anggota
+        // DATA 20 ANGGOTA - Silakan Edit di Sini
         const founders = [
-            { name: "Alex Rivera", role: "CEO & Founder", img: "https://i.pravatar.cc/400?img=1" },
-            { name: "Sarah Chen", role: "CTO", img: "https://i.pravatar.cc/400?img=2" },
-            { name: "Marcus Thorne", role: "COO", img: "https://i.pravatar.cc/400?img=3" },
-            { name: "Jessica Wong", role: "Head of Design", img: "https://i.pravatar.cc/400?img=4" },
-            { name: "Budi Santoso", role: "VP Engineering", img: "https://i.pravatar.cc/400?img=5" },
-            { name: "Elena Gilbert", role: "Product Manager", img: "https://i.pravatar.cc/400?img=6" },
-            { name: "Kevin Vark", role: "Lead Developer", img: "https://i.pravatar.cc/400?img=7" },
-            { name: "Siska Wijaya", role: "Marketing Director", img: "https://i.pravatar.cc/400?img=8" },
-            { name: "David Miller", role: "Finance Head", img: "https://i.pravatar.cc/400?img=9" },
-            { name: "Anya Taylor", role: "HR Director", img: "https://i.pravatar.cc/400?img=10" },
-            { name: "Rizky Pratama", role: "Security Expert", img: "https://i.pravatar.cc/400?img=11" },
-            { name: "Chloe Smith", role: "Legal Counsel", img: "https://i.pravatar.cc/400?img=12" },
-            { name: "Taufik Hidayat", role: "Growth Lead", img: "https://i.pravatar.cc/400?img=13" },
-            { name: "Maria Garcia", role: "UX Researcher", img: "https://i.pravatar.cc/400?img=14" },
-            { name: "James Bond", role: "Strategic Advisor", img: "https://i.pravatar.cc/400?img=15" },
-            { name: "Linda Ross", role: "Data Scientist", img: "https://i.pravatar.cc/400?img=16" },
-            { name: "Erik Larson", role: "DevOps Engineer", img: "https://i.pravatar.cc/400?img=17" },
-            { name: "Nina Dobrev", role: "Content Strategist", img: "https://i.pravatar.cc/400?img=18" },
-            { name: "Oscar Isaac", role: "Business Dev", img: "https://i.pravatar.cc/400?img=19" },
-            { name: "Putri Ayu", role: "Customer Success", img: "https://i.pravatar.cc/400?img=20" }
+            {
+                name: "Alex Rivera",
+                role: "CEO TechNova",
+                profileImg: "https://i.pravatar.cc/300?img=1",
+                businessName: "TechNova Solutions",
+                businessDesc: "Layanan Cloud Computing untuk UMKM agar bisa go-digital dengan biaya terjangkau.",
+                productImg: "https://images.unsplash.com/photo-1551288049-bbb653283b5c?auto=format&fit=crop&w=500",
+                contact: "WhatsApp: +62 812-3456-7890",
+                sosmed: { ig: "@alexrivera", web: "technova.id" }
+            },
+            {
+                name: "Sarah Wijaya",
+                role: "Founder Bloom",
+                profileImg: "https://i.pravatar.cc/300?img=5",
+                businessName: "Bloom Skincare",
+                businessDesc: "Produk kecantikan organik berbasis bahan alami Indonesia tanpa bahan kimia berbahaya.",
+                productImg: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500",
+                contact: "Email: sarah@bloom.com",
+                sosmed: { ig: "@bloomskin", web: "bloom.id" }
+            }
+            // Kamu bisa menambah data sampai 20 dengan format yang sama...
         ];
 
-        const grid = document.getElementById('grid');
-        const modal = document.getElementById('modal');
+        // Tambahkan sisa 18 data dummy otomatis untuk demo
+        for(let i=3; i<=20; i++) {
+            founders.push({
+                name: "Founder Anggota " + i,
+                role: "Jabatan/Role " + i,
+                profileImg: `https://i.pravatar.cc/300?img=${i+10}`,
+                businessName: "Bisnis Anggota " + i,
+                businessDesc: "Deskripsi singkat mengenai bisnis yang dijalankan oleh founder ini. Meliputi visi dan misi singkat.",
+                productImg: `https://picsum.photos/seed/${i}/500/300`,
+                contact: "Contact: +62 899-xxx-xxx",
+                sosmed: { ig: "@username", web: "website.com" }
+            });
+        }
 
-        // Fungsi Render Card
+        const grid = document.getElementById('mainGrid');
+        const modal = document.getElementById('p-modal');
+
+        // Render Card
         founders.forEach(f => {
             const card = document.createElement('div');
             card.className = 'founder-card';
             card.innerHTML = `
-                <img src="${f.img}" alt="${f.name}">
+                <img src="${f.profileImg}" alt="${f.name}">
                 <div class="card-info">
                     <h3>${f.name}</h3>
                     <p>${f.role}</p>
@@ -253,22 +215,31 @@
             grid.appendChild(card);
         });
 
-        // Fungsi Modal
-        function openModal(data) {
-            document.getElementById('m-name').innerText = data.name;
-            document.getElementById('m-role').innerText = data.role;
-            document.getElementById('m-img').src = data.img;
+        function openModal(f) {
+            document.getElementById('m-name').innerText = f.name;
+            document.getElementById('m-role').innerText = f.role;
+            document.getElementById('m-img').src = f.profileImg;
+            document.getElementById('m-biz-name').innerText = f.businessName;
+            document.getElementById('m-biz-desc').innerText = f.businessDesc;
+            document.getElementById('m-prod-img').src = f.productImg;
+            document.getElementById('m-contact').innerText = f.contact;
+            
+            const socialBox = document.getElementById('m-social');
+            socialBox.innerHTML = `
+                <a href="#">Instagram: ${f.sosmed.ig}</a>
+                <a href="#">Web: ${f.sosmed.web}</a>
+            `;
+
             modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Stop scroll
         }
 
         function closeModal() {
             modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Re-enable scroll
         }
 
-        // Tutup modal jika klik di luar area konten
-        window.onclick = (e) => {
-            if (e.target == modal) closeModal();
-        }
+        window.onclick = (e) => { if(e.target == modal) closeModal(); }
     </script>
 </body>
 </html>
