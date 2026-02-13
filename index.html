@@ -38,34 +38,18 @@
             z-index: 10000;
             transition: opacity 0.8s ease, visibility 0.8s;
         }
-        #intro-overlay.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-        #intro-text {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 4px;
-            color: var(--accent);
-            transform: translateY(20px);
-            opacity: 0;
-            animation: slideUpFadeIn 1s forwards;
-        }
-        @keyframes slideUpFadeIn {
-            to { transform: translateY(0); opacity: 1; }
-        }
+        #intro-overlay.hidden { opacity: 0; visibility: hidden; }
 
-        /* --- Header / Hero --- */
+        /* --- Header --- */
         .hero {
             padding: 120px 20px 60px;
             text-align: center;
             background: radial-gradient(circle at top, #1a202c 0%, #08090a 100%);
         }
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; letter-spacing: -2px; margin-bottom: 15px; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; letter-spacing: -2px; }
         .gradient-text { background: linear-gradient(90deg, #00d4ff, #0055ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .slogan { color: var(--text-dim); max-width: 650px; margin: 0 auto; font-size: 1.1rem; line-height: 1.6; }
 
-        /* --- Grid Section --- */
+        /* --- Grid --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
         .founder-grid {
             display: grid;
@@ -73,28 +57,24 @@
             gap: 25px;
         }
 
-        /* --- Card Design --- */
         .founder-card {
             background: var(--card-bg);
             border-radius: 24px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: 0.4s;
             border: 1px solid var(--glass);
             position: relative;
             height: 380px;
         }
-        .founder-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,200,255,0.2); }
-        .founder-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .founder-card:hover img { transform: scale(1.05); filter: brightness(0.7); }
+        .founder-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .founder-card img { width: 100%; height: 100%; object-fit: cover; }
         
         .card-info { 
             padding: 25px 20px; 
             background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, transparent 100%);
             position: absolute; bottom: 0; width: 100%;
         }
-        .card-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
-        .card-info p { color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- Modal --- */
         .modal {
@@ -120,59 +100,77 @@
             display: flex;
             overflow: hidden;
             border: 1px solid var(--glass);
-            animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        @keyframes modalPop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
         .modal-left { flex: 0.4; padding: 40px; border-right: 1px solid var(--glass); text-align: center; background: #181a1d; }
         .modal-right { flex: 0.6; padding: 40px; overflow-y: auto; }
 
-        .m-profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent); margin-bottom: 20px; background: #333; }
-        .m-product-img { width: 100%; border-radius: 15px; margin-top: 10px; border: 1px solid var(--glass); object-fit: cover; height: 220px; background: #333; }
+        .m-profile-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent); margin-bottom: 15px; }
 
-        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 1.5rem; cursor: pointer; color: var(--text-dim); transition: 0.3s; z-index: 100; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--glass); }
-        .close-btn:hover { color: white; background: rgba(255,255,255,0.1); }
-
-        .business-tag { background: var(--accent); color: #000; padding: 4px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; display: inline-block; margin-bottom: 12px; }
-
-        /* Social & Contact */
-        .social-links { margin: 20px 0; display: flex; flex-direction: column; gap: 12px; align-items: center; }
-        .social-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 10px; width: 100%; justify-content: center; }
+        /* --- NEW: Social Section with Logo on Left --- */
+        .social-container {
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 20px;
+            border: 1px solid var(--glass);
+        }
+        .biz-logo-wrapper {
+            flex-shrink: 0;
+        }
+        .m-biz-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: white; /* Putih agar logo terlihat jelas */
+            padding: 5px;
+        }
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+        .social-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
         .social-links a:hover { color: var(--accent); }
+
+        .m-product-img { width: 100%; border-radius: 15px; margin-top: 10px; height: 200px; object-fit: cover; background: #333; }
+
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 1.5rem; cursor: pointer; color: var(--text-dim); z-index: 100; }
 
         .wa-btn {
             display: flex; align-items: center; justify-content: center; gap: 10px;
             background: var(--wa-green); color: white; padding: 15px; border-radius: 14px;
-            text-decoration: none; font-weight: 700; margin-top: 15px; transition: 0.3s;
+            text-decoration: none; font-weight: 700; margin-top: 15px;
         }
-        .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); }
 
-        /* --- Scrollbar --- */
-        .modal-right::-webkit-scrollbar { width: 6px; }
-        .modal-right::-webkit-scrollbar-thumb { background: var(--glass); border-radius: 10px; }
-
-        /* --- Mobile Responsive --- */
         @media (max-width: 850px) {
             .modal-content { flex-direction: column; overflow-y: auto; }
-            .modal-left { border-right: none; border-bottom: 1px solid var(--glass); padding: 40px 20px; }
-            .modal-right { padding: 30px 20px; }
-            .founder-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        }
-        @media (max-width: 480px) {
-            .founder-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.5rem; }
+            .modal-left { border-right: none; border-bottom: 1px solid var(--glass); }
         }
     </style>
 </head>
 <body>
 
     <div id="intro-overlay">
-        <span id="intro-text">⚡️ SCBD CONNECT ⚡️</span>
+        <span id="intro-text" style="color: var(--accent); font-weight: 800; font-size: 1.5rem;">⚡️ SCBD CONNECT ⚡️</span>
     </div>
     
     <header class="hero">
         <h1>FOUNDER <span class="gradient-text">CIRCLE</span></h1>
-        <p class="slogan">"Membangun masa depan melalui inovasi, kolaborasi, dan dedikasi di berbagai sektor industri."</p>
+        <p style="color: var(--text-dim); margin-top: 10px;">Exclusive Entrepreneur Network</p>
     </header>
 
     <div class="container">
@@ -184,72 +182,63 @@
             <span class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></span>
             
             <div class="modal-left">
-                <img id="m-img" src="" class="m-profile-img" alt="Profile">
-                <h2 id="m-name">Nama</h2>
-                <p id="m-role" style="color: var(--accent); font-weight: 600; margin-top: 5px;">Role</p>
+                <img id="m-img" src="" class="m-profile-img">
+                <h2 id="m-name" style="font-size: 1.4rem;">Nama</h2>
+                <p id="m-role" style="color: var(--accent); font-size: 0.9rem; font-weight: 600;">Role</p>
                 
-                <div class="social-links" id="m-social">
+                <div class="social-container">
+                    <div class="biz-logo-wrapper">
+                        <img id="m-biz-logo" src="" class="m-biz-logo" alt="Logo">
                     </div>
+                    <div class="social-links" id="m-social">
+                        </div>
+                </div>
             </div>
 
             <div class="modal-right">
-                <div style="margin-bottom: 30px;">
-                    <span class="business-tag">BUSINESS PROFILE</span>
-                    <h3 id="m-biz-name" style="font-size: 1.6rem; margin-bottom: 12px; color: var(--accent);">Nama Bisnis</h3>
-                    <p id="m-biz-desc" style="color: var(--text-dim); line-height: 1.7; font-size: 0.95rem;"></p>
+                <div style="margin-bottom: 25px;">
+                    <h3 id="m-biz-name" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 8px;">Bisnis</h3>
+                    <p id="m-biz-desc" style="color: var(--text-dim); line-height: 1.6; font-size: 0.9rem;"></p>
                 </div>
 
-                <div style="margin-bottom: 30px;">
-                    <span class="business-tag">PRODUCT SHOWCASE</span>
-                    <img id="m-prod-img" src="" class="m-product-img" alt="Product">
+                <div style="margin-bottom: 25px;">
+                    <p style="font-weight: 800; font-size: 0.7rem; color: var(--accent); letter-spacing: 1px; margin-bottom: 10px;">PRODUCT SHOWCASE</p>
+                    <img id="m-prod-img" src="" class="m-product-img">
                 </div>
 
-                <div>
-                    <span class="business-tag">DIRECT LINE</span>
-                    <div id="m-contact-box">
-                        </div>
-                </div>
+                <div id="m-contact-box"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // DATA FOUNDERS
         const founders = [
             {
-                name: "Albert Pratama (Alabert)",
+                name: "Albert Pratama",
                 role: "Founder",
                 profileImg: "photo/albert.png",
                 businessName: "Bluegray Ink",
-                businessDesc: "Spesialis kustomisasi perlengkapan setup desktop mulai dari Custom Deskmat dengan bahan premium hingga Custom NFC Card untuk kebutuhan personal branding maupun korporat.",
+                businessLogo: "https://via.placeholder.com/100?text=B", // Ganti dengan path logo asli
+                businessDesc: "Spesialis kustomisasi perlengkapan setup desktop mulai dari Custom Deskmat hingga Custom NFC Card.",
                 productImg: "photo/product/deskmat.png",
                 contact: "+6281210005912",
-                sosmed: { ig: "@bluegrayink", tiktok: "@bluegrayink", web: "bluegrayink.com" }
-            },
-            {
-                name: "Sarah Wijaya",
-                role: "CEO & Creative Director",
-                profileImg: "https://i.pravatar.cc/300?u=sarah", 
-                businessName: "Digital Studio",
-                businessDesc: "Membantu UMKM melakukan digital branding melalui konten video dan desain grafis yang estetik untuk meningkatkan konversi penjualan di media sosial.",
-                productImg: "https://picsum.photos/seed/studio/500/300",
-                contact: "+628123456789",
-                sosmed: { ig: "@digital_studio", web: "studio.com" }
+                sosmed: { ig: "@bluegrayink", web: "bluegrayink.com" }
             }
         ];
 
-        // Tambah data dummy sampai 20 jika kurang
+        // Isi data dummy jika kurang dari 20
         if(founders.length < 20) {
             for(let i = founders.length + 1; i <= 20; i++) {
                 founders.push({
-                    name: `Member Founder ${i}`,
-                    role: "Entrepreneur",
-                    profileImg: `https://i.pravatar.cc/300?img=${i+10}`,
-                    businessName: `Visionary Co ${i}`,
-                    businessDesc: "Menyediakan solusi teknologi mutakhir untuk membantu efisiensi bisnis operasional di era digital yang serba cepat ini.",
-                    productImg: `https://picsum.photos/seed/${i+50}/500/300`,
+                    name: `Founder ${i}`,
+                    role: "CEO",
+                    profileImg: `https://i.pravatar.cc/300?img=${i}`,
+                    businessName: `Startup ${i}`,
+                    businessLogo: `https://ui-avatars.com/api/?name=S${i}&background=00d4ff&color=fff`,
+                    businessDesc: "Solusi inovatif untuk bisnis masa depan.",
+                    productImg: `https://picsum.photos/seed/${i}/500/300`,
                     contact: "+628000000000",
-                    sosmed: { ig: "@username", web: "website.com" }
+                    sosmed: { ig: "@founder_ig", web: "startup.com" }
                 });
             }
         }
@@ -257,52 +246,38 @@
         const grid = document.getElementById('mainGrid');
         const modal = document.getElementById('p-modal');
 
-        // Render Cards
-        function renderCards() {
-            grid.innerHTML = '';
-            founders.forEach((f, index) => {
-                const card = document.createElement('div');
-                card.className = 'founder-card';
-                card.innerHTML = `
-                    <img src="${f.profileImg}" alt="${f.name}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Photo'">
-                    <div class="card-info">
-                        <p>${f.businessName}</p>
-                        <h3>${f.name}</h3>
-                    </div>
-                `;
-                card.onclick = () => openModal(f);
-                grid.appendChild(card);
-            });
-        }
+        founders.forEach(f => {
+            const card = document.createElement('div');
+            card.className = 'founder-card';
+            card.innerHTML = `
+                <img src="${f.profileImg}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Photo'">
+                <div class="card-info">
+                    <p style="color: var(--accent); font-size: 0.7rem; font-weight: 800;">${f.businessName}</p>
+                    <h3 style="font-size: 1.1rem;">${f.name}</h3>
+                </div>
+            `;
+            card.onclick = () => openModal(f);
+            grid.appendChild(card);
+        });
 
-        // Modal Logic
         function openModal(f) {
             document.getElementById('m-name').innerText = f.name;
             document.getElementById('m-role').innerText = f.role;
             document.getElementById('m-img').src = f.profileImg;
+            document.getElementById('m-biz-logo').src = f.businessLogo;
             document.getElementById('m-biz-name').innerText = f.businessName;
             document.getElementById('m-biz-desc').innerText = f.businessDesc;
             document.getElementById('m-prod-img').src = f.productImg;
 
-            // Social Links Logic
             let socialHTML = '';
-            if(f.sosmed.ig) {
-                socialHTML += `<a href="https://instagram.com/${f.sosmed.ig.replace('@','')}" target="_blank"><i class="fab fa-instagram"></i> ${f.sosmed.ig}</a>`;
-            }
-            if(f.sosmed.tiktok) {
-                socialHTML += `<a href="https://tiktok.com/@${f.sosmed.tiktok.replace('@','')}" target="_blank"><i class="fab fa-tiktok"></i> ${f.sosmed.tiktok}</a>`;
-            }
-            if(f.sosmed.web) {
-                const cleanWeb = f.sosmed.web.replace('https://', '').replace('http://', '');
-                socialHTML += `<a href="https://${cleanWeb}" target="_blank"><i class="fas fa-globe"></i> ${cleanWeb}</a>`;
-            }
+            if(f.sosmed.ig) socialHTML += `<a href="#"><i class="fab fa-instagram"></i> ${f.sosmed.ig}</a>`;
+            if(f.sosmed.web) socialHTML += `<a href="#"><i class="fas fa-globe"></i> ${f.sosmed.web}</a>`;
             document.getElementById('m-social').innerHTML = socialHTML;
 
-            // WA Button
             const cleanWa = f.contact.replace(/\D/g, '');
             document.getElementById('m-contact-box').innerHTML = `
                 <a href="https://wa.me/${cleanWa}" class="wa-btn" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
+                    <i class="fab fa-whatsapp"></i> Chat WhatsApp
                 </a>
             `;
 
@@ -315,16 +290,10 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Global Events
         window.onclick = (e) => { if(e.target == modal) closeModal(); }
         
-        document.addEventListener('DOMContentLoaded', () => {
-            renderCards();
-            // Intro Animation
-            setTimeout(() => {
-                document.getElementById('intro-overlay').classList.add('hidden');
-            }, 1500);
-        });
+        // Hide Intro
+        setTimeout(() => { document.getElementById('intro-overlay').classList.add('hidden'); }, 1000);
     </script>
 </body>
 </html>
