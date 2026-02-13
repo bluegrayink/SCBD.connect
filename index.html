@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Founders Universe</title>
+    <title>Founder Circle - SCBD Connect</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
     
@@ -27,26 +27,37 @@
             overflow-x: hidden;
         }
 
-         #intro-overlay.hidden {
+        /* --- Intro Overlay --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+        #intro-overlay.hidden {
             opacity: 0;
-            pointer-events: none;
+            visibility: hidden;
         }
         #intro-text {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            color: var(--accent);
             transform: translateY(20px);
             opacity: 0;
             animation: slideUpFadeIn 1s forwards;
-            animation-delay: 0.5s;
         }
         @keyframes slideUpFadeIn {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        /* --- Header / Slogan --- */
+        /* --- Header / Hero --- */
         .hero {
-            padding: 100px 20px 60px;
+            padding: 120px 20px 60px;
             text-align: center;
             background: radial-gradient(circle at top, #1a202c 0%, #08090a 100%);
         }
@@ -58,7 +69,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
         .founder-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 25px;
         }
 
@@ -71,35 +82,36 @@
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             border: 1px solid var(--glass);
             position: relative;
+            height: 380px;
         }
-        .founder-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .founder-card img { width: 100%; height: 320px; object-fit: cover; transition: 0.5s; }
-        .founder-card:hover img { transform: scale(1.05); }
+        .founder-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,200,255,0.2); }
+        .founder-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .founder-card:hover img { transform: scale(1.05); filter: brightness(0.7); }
         
         .card-info { 
-            padding: 20px; 
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            padding: 25px 20px; 
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, transparent 100%);
             position: absolute; bottom: 0; width: 100%;
         }
-        .card-info h3 { font-size: 1.2rem; font-weight: 700; }
-        .card-info p { color: var(--accent); font-size: 0.85rem; margin-top: 4px; font-weight: 600; }
+        .card-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
+        .card-info p { color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- Modal / Pop-up --- */
+        /* --- Modal --- */
         .modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             padding: 20px;
         }
         .modal.active { display: flex; }
 
         .modal-content {
-            background: #181a1d;
+            background: #121417;
             width: 100%;
             max-width: 850px;
             max-height: 90vh;
@@ -108,50 +120,54 @@
             display: flex;
             overflow: hidden;
             border: 1px solid var(--glass);
-            animation: modalPop 0.4s ease;
+            animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         @keyframes modalPop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        .modal-left { flex: 0.4; padding: 40px; border-right: 1px solid var(--glass); text-align: center; }
-        .modal-right { flex: 0.6; padding: 40px; overflow-y: auto; background: #1c1f24; }
+        .modal-left { flex: 0.4; padding: 40px; border-right: 1px solid var(--glass); text-align: center; background: #181a1d; }
+        .modal-right { flex: 0.6; padding: 40px; overflow-y: auto; }
 
-        .m-profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent); margin-bottom: 20px; }
-        .m-product-img { width: 100%; border-radius: 15px; margin-top: 10px; border: 1px solid var(--glass); object-fit: cover; height: 200px; }
+        .m-profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent); margin-bottom: 20px; background: #333; }
+        .m-product-img { width: 100%; border-radius: 15px; margin-top: 10px; border: 1px solid var(--glass); object-fit: cover; height: 220px; background: #333; }
 
-        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 1.5rem; cursor: pointer; color: var(--text-dim); transition: 0.3s; z-index: 100; }
-        .close-btn:hover { color: white; }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 1.5rem; cursor: pointer; color: var(--text-dim); transition: 0.3s; z-index: 100; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--glass); }
+        .close-btn:hover { color: white; background: rgba(255,255,255,0.1); }
 
-        .business-tag { background: var(--accent); color: #000; padding: 4px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; display: inline-block; margin-bottom: 8px; }
+        .business-tag { background: var(--accent); color: #000; padding: 4px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; display: inline-block; margin-bottom: 12px; }
 
         /* Social & Contact */
-        .social-links { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
-        .social-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .social-links { margin: 20px 0; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+        .social-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 10px; width: 100%; justify-content: center; }
         .social-links a:hover { color: var(--accent); }
-        .social-links i { width: 20px; font-size: 1.1rem; }
 
         .wa-btn {
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            background: var(--wa-green); color: white; padding: 12px; border-radius: 12px;
+            background: var(--wa-green); color: white; padding: 15px; border-radius: 14px;
             text-decoration: none; font-weight: 700; margin-top: 15px; transition: 0.3s;
         }
-        .wa-btn:hover { transform: scale(1.03); filter: brightness(1.1); }
+        .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); }
+
+        /* --- Scrollbar --- */
+        .modal-right::-webkit-scrollbar { width: 6px; }
+        .modal-right::-webkit-scrollbar-thumb { background: var(--glass); border-radius: 10px; }
 
         /* --- Mobile Responsive --- */
         @media (max-width: 850px) {
             .modal-content { flex-direction: column; overflow-y: auto; }
-            .modal-left { border-right: none; border-bottom: 1px solid var(--glass); padding: 30px; }
+            .modal-left { border-right: none; border-bottom: 1px solid var(--glass); padding: 40px 20px; }
+            .modal-right { padding: 30px 20px; }
             .founder-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
         }
         @media (max-width: 480px) {
             .founder-grid { grid-template-columns: 1fr; }
-            .modal-right { padding: 25px; }
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
     <div id="intro-overlay">
-        <span id="intro-text">⚡️ SCBD Connect ⚡️</span>
+        <span id="intro-text">⚡️ SCBD CONNECT ⚡️</span>
     </div>
     
     <header class="hero">
@@ -168,28 +184,28 @@
             <span class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></span>
             
             <div class="modal-left">
-                <img id="m-img" src="" class="m-profile-img">
+                <img id="m-img" src="" class="m-profile-img" alt="Profile">
                 <h2 id="m-name">Nama</h2>
-                <p id="m-role" style="color: var(--accent); font-weight: 600;">Role</p>
+                <p id="m-role" style="color: var(--accent); font-weight: 600; margin-top: 5px;">Role</p>
                 
                 <div class="social-links" id="m-social">
                     </div>
             </div>
 
             <div class="modal-right">
-                <div style="margin-bottom: 25px;">
+                <div style="margin-bottom: 30px;">
                     <span class="business-tag">BUSINESS PROFILE</span>
-                    <h3 id="m-biz-name" style="font-size: 1.5rem; margin-bottom: 10px;">Nama Bisnis</h3>
-                    <p id="m-biz-desc" style="color: var(--text-dim); line-height: 1.6;"></p>
+                    <h3 id="m-biz-name" style="font-size: 1.6rem; margin-bottom: 12px; color: var(--accent);">Nama Bisnis</h3>
+                    <p id="m-biz-desc" style="color: var(--text-dim); line-height: 1.7; font-size: 0.95rem;"></p>
                 </div>
 
-                <div style="margin-bottom: 25px;">
+                <div style="margin-bottom: 30px;">
                     <span class="business-tag">PRODUCT SHOWCASE</span>
-                    <img id="m-prod-img" src="" class="m-product-img">
+                    <img id="m-prod-img" src="" class="m-product-img" alt="Product">
                 </div>
 
                 <div>
-                    <span class="business-tag">DIRECT CONTACT</span>
+                    <span class="business-tag">DIRECT LINE</span>
                     <div id="m-contact-box">
                         </div>
                 </div>
@@ -198,7 +214,7 @@
     </div>
 
     <script>
-        // DATA FOUNDERS (Silakan edit data di bawah ini)
+        // DATA FOUNDERS
         const founders = [
             {
                 name: "Albert Pratama (Alabert)",
@@ -211,37 +227,27 @@
                 sosmed: { ig: "@bluegrayink", tiktok: "@bluegrayink", web: "bluegrayink.com" }
             },
             {
-                name: "Founder Kedua",
-                role: "CEO Creative",
-                profileImg: "photo/founder2.png", 
+                name: "Sarah Wijaya",
+                role: "CEO & Creative Director",
+                profileImg: "https://i.pravatar.cc/300?u=sarah", 
                 businessName: "Digital Studio",
-                businessDesc: "Membantu UMKM melakukan digital branding melalui konten video dan desain grafis yang estetik.",
-                productImg: "photo/product/produk2.png",
+                businessDesc: "Membantu UMKM melakukan digital branding melalui konten video dan desain grafis yang estetik untuk meningkatkan konversi penjualan di media sosial.",
+                productImg: "https://picsum.photos/seed/studio/500/300",
                 contact: "+628123456789",
                 sosmed: { ig: "@digital_studio", web: "studio.com" }
             }
-            // Tambahkan data orang ke-3 sampai ke-20 dengan format yang sama persis...
         ];
 
-           // Intro Animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const introOverlay = document.getElementById('intro-overlay');
-            setTimeout(() => {
-                introOverlay.classList.add('hidden');
-                document.body.style.overflow = 'auto'; // Re-enable scroll after intro
-            }, 2000); // Hide after 2 seconds
-        });
-        
-        // AUTO GENERATE DATA DUMMY (Hapus loop ini jika kamu sudah isi 20 data asli di atas)
+        // Tambah data dummy sampai 20 jika kurang
         if(founders.length < 20) {
             for(let i = founders.length + 1; i <= 20; i++) {
                 founders.push({
-                    name: `Founder Anggota ${i}`,
-                    role: "Creative Director",
-                    profileImg: `https://i.pravatar.cc/300?img=${i}`,
-                    businessName: `Startup Tech ${i}`,
-                    businessDesc: "Deskripsi singkat mengenai bisnis yang dijalankan. Menyediakan solusi inovatif untuk masalah sehari-hari.",
-                    productImg: `https://picsum.photos/seed/${i}/500/300`,
+                    name: `Member Founder ${i}`,
+                    role: "Entrepreneur",
+                    profileImg: `https://i.pravatar.cc/300?img=${i+10}`,
+                    businessName: `Visionary Co ${i}`,
+                    businessDesc: "Menyediakan solusi teknologi mutakhir untuk membantu efisiensi bisnis operasional di era digital yang serba cepat ini.",
+                    productImg: `https://picsum.photos/seed/${i+50}/500/300`,
                     contact: "+628000000000",
                     sosmed: { ig: "@username", web: "website.com" }
                 });
@@ -251,22 +257,25 @@
         const grid = document.getElementById('mainGrid');
         const modal = document.getElementById('p-modal');
 
-        // Render Card ke Grid
-        founders.forEach(f => {
-            const card = document.createElement('div');
-            card.className = 'founder-card';
-            card.innerHTML = `
-                <img src="${f.profileImg}" alt="${f.name}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Photo'">
-                <div class="card-info">
-                    <h3>${f.name}</h3>
-                    <p>${f.businessName}</p>
-                </div>
-            `;
-            card.onclick = () => openModal(f);
-            grid.appendChild(card);
-        });
+        // Render Cards
+        function renderCards() {
+            grid.innerHTML = '';
+            founders.forEach((f, index) => {
+                const card = document.createElement('div');
+                card.className = 'founder-card';
+                card.innerHTML = `
+                    <img src="${f.profileImg}" alt="${f.name}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Photo'">
+                    <div class="card-info">
+                        <p>${f.businessName}</p>
+                        <h3>${f.name}</h3>
+                    </div>
+                `;
+                card.onclick = () => openModal(f);
+                grid.appendChild(card);
+            });
+        }
 
-        // Buka Pop-up
+        // Modal Logic
         function openModal(f) {
             document.getElementById('m-name').innerText = f.name;
             document.getElementById('m-role').innerText = f.role;
@@ -275,24 +284,25 @@
             document.getElementById('m-biz-desc').innerText = f.businessDesc;
             document.getElementById('m-prod-img').src = f.productImg;
 
-            // Render Social Links dengan Username Dinamis
-            document.getElementById('m-social').innerHTML = `
-            <a href="https://instagram.com/${f.sosmed.ig.replace('@','')}" target="_blank">
-                <i class="fab fa-instagram"></i> ${f.sosmed.ig}
-            </a>
-            <a href="https://tiktok.com/@${f.sosmed.tiktok.replace('@','')}" target="_blank">
-                <i class="fab fa-tiktok"></i> ${f.sosmed.tiktok}
-            </a>
-            <a href="https://${f.sosmed.web}" target="_blank">
-                <i class="fas fa-globe"></i> ${f.sosmed.web.replace('https://', '').replace('http://', '')}
-            </a>
-            `;
+            // Social Links Logic
+            let socialHTML = '';
+            if(f.sosmed.ig) {
+                socialHTML += `<a href="https://instagram.com/${f.sosmed.ig.replace('@','')}" target="_blank"><i class="fab fa-instagram"></i> ${f.sosmed.ig}</a>`;
+            }
+            if(f.sosmed.tiktok) {
+                socialHTML += `<a href="https://tiktok.com/@${f.sosmed.tiktok.replace('@','')}" target="_blank"><i class="fab fa-tiktok"></i> ${f.sosmed.tiktok}</a>`;
+            }
+            if(f.sosmed.web) {
+                const cleanWeb = f.sosmed.web.replace('https://', '').replace('http://', '');
+                socialHTML += `<a href="https://${cleanWeb}" target="_blank"><i class="fas fa-globe"></i> ${cleanWeb}</a>`;
+            }
+            document.getElementById('m-social').innerHTML = socialHTML;
 
-            // Render WA Button
-            const cleanWa = f.contact.replace(/\D/g, ''); // Ambil angka saja
+            // WA Button
+            const cleanWa = f.contact.replace(/\D/g, '');
             document.getElementById('m-contact-box').innerHTML = `
                 <a href="https://wa.me/${cleanWa}" class="wa-btn" target="_blank">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
+                    <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
                 </a>
             `;
 
@@ -300,17 +310,21 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Tutup Pop-up
         function closeModal() {
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        // Tutup jika klik background hitam
+        // Global Events
         window.onclick = (e) => { if(e.target == modal) closeModal(); }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCards();
+            // Intro Animation
+            setTimeout(() => {
+                document.getElementById('intro-overlay').classList.add('hidden');
+            }, 1500);
+        });
     </script>
 </body>
 </html>
-
-
-
