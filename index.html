@@ -223,6 +223,15 @@
             // Tambahkan data orang ke-3 sampai ke-20 dengan format yang sama persis...
         ];
 
+           // Intro Animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const introOverlay = document.getElementById('intro-overlay');
+            setTimeout(() => {
+                introOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Re-enable scroll after intro
+            }, 2000); // Hide after 2 seconds
+        });
+        
         // AUTO GENERATE DATA DUMMY (Hapus loop ini jika kamu sudah isi 20 data asli di atas)
         if(founders.length < 20) {
             for(let i = founders.length + 1; i <= 20; i++) {
@@ -302,5 +311,6 @@
     </script>
 </body>
 </html>
+
 
 
