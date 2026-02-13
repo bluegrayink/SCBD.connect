@@ -27,6 +27,23 @@
             overflow-x: hidden;
         }
 
+         #intro-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #intro-text {
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUpFadeIn 1s forwards;
+            animation-delay: 0.5s;
+        }
+        @keyframes slideUpFadeIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
         /* --- Header / Slogan --- */
         .hero {
             padding: 100px 20px 60px;
@@ -133,6 +150,10 @@
 </head>
 <body>
 
+    <div id="intro-overlay">
+        <span id="intro-text">⚡️ SCBD Connect ⚡️</span>
+    </div>
+    
     <header class="hero">
         <h1>FOUNDER <span class="gradient-text">CIRCLE</span></h1>
         <p class="slogan">"Membangun masa depan melalui inovasi, kolaborasi, dan dedikasi di berbagai sektor industri."</p>
@@ -281,4 +302,5 @@
     </script>
 </body>
 </html>
+
 
